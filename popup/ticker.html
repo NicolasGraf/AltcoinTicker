@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="ticker.css"/>
+
+  </head>
+
+  <body>
+    <table class="table" style="width:100%">
+     <tr class="tablerow" id="firstrow">
+       <th>Rank</th>
+       <th>Logo</th>
+       <th>Name</th>
+       <th>Price</th>
+       <th>Change(24/h)</th>
+     </tr>
+    </table>
+    <div id="bottomWrapper">
+      <div id="overlay"></div>
+      <div id="smallLoader" class="loader small"></div>
+        <label id="pages">Page <span id="prevPage">&#9664;</span><span id="pageNumber"></span><span id=nextPage>&#9654;</span></label>
+        <label id="toggle">Settings
+          <input id="toggleSettings" type="checkbox" checked>
+        </label>
+        <div class="settings">
+        <div id="refresh">
+          <input id="updateBtn" name="update" type="button" value="Update">
+        </div>
+        <label id="timestamp" for="timestampLabel">Last update: <span id="timestampLabel"></span></label>
+        <label>Currency:
+        <select id="currencieList" name="currencies">
+          <option>USD</option>
+          <option>EUR</option>
+          <option>AUD</option>
+          <option>GBP</option>
+          <option>BTC</option>
+        </select>
+        </label>
+        &ensp;
+        <label id="toggleTheme">Dark Theme
+          <input id="toggleTheme" type="checkbox">
+        </label>
+          <input id="popout" type="button" value="Popout">
+      </div>
+      <div class="loader"></div>
+    </div>
+    <script src="ticker.js"></script>
+    <script src="../node_modules/jquery/dist/jquery.js"></script>
+  </body>
+
+</html>
