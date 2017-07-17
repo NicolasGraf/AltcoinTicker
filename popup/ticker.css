@@ -1,5 +1,5 @@
 html, body {
-  width: 500px;
+  width: 550px;
 }
 .logo {
   background-position: center !important;
@@ -10,15 +10,9 @@ html, body {
   display: table-row;
 }
 
-.settings {
-  font-family:Arial, Helvetica, sans-serif;
-  font-size:12px;
-  text-shadow: 1px 1px 0px #fff;
-}
-
 .loader {
     border: 16px solid #e1e1e1; /* Light grey */
-    border-top: 16px solid #cedebc; /* Blue */
+    border-top: 16px solid #cedebc; /*Green */
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -28,11 +22,24 @@ html, body {
     margin-bottom: 20px;
     left: 50%;
 }
-#firstrow {
+.small {
+  border-width: 6px;
+  border-color: #ade1a0;
+  border-top-color: #e1e1e1;
+  width: 20px;
+  height: 20px;
+  position: fixed;
   display: none;
+  top: 40%;
+  left: 50%;
+  z-index: 3;
 }
 
 .settings {
+  display: none;
+}
+
+#firstrow, #pages, #toggle {
   display: none;
 }
 
@@ -47,10 +54,30 @@ html, body {
   margin: 0px 5px;
   display: inline-block;
 }
-#pages {
-  display: block;
+
+#overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0);
+  opacity: 0.5;
+  z-index: 2;
 }
 
+#bottomWrapper {
+  font-family:Arial, Helvetica, sans-serif;
+  font-size:12px;
+  text-shadow: 1px 1px 0px #fff;
+}
+#bottomWrapper ::-moz-selection {
+  background: transparent;
+  color: inherit;
+}
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -63,9 +90,9 @@ table {
 	color:#666;
 	font-size:12px;
 	text-shadow: 1px 1px 0px #fff;
-  background:#eaebec;
-  margin: 10px 0px;
+    background:#eaebec;
 	border:#ccc 1px solid;
+    width: 100%;
 
 	border-radius:3px;
 	box-shadow: 0 1px 2px #d1d1d1;
