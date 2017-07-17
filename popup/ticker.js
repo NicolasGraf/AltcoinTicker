@@ -217,7 +217,7 @@ function toggleTheme(e){
     $("tr.even td").css("background-color", "#191a18");
     $("table td").css("border-color", "#171f1a");
     $("table th").css("border-color", "#171f1a");
-    $("table th").css("background", "#171f1a");
+    $("table th").css("background-color", "#171f1a");
     $("table").css("background-color", "#171f1a");
     $("table").css("box-shadow", "none");
     $("table").css("text-shadow", "none");
@@ -231,7 +231,7 @@ function toggleTheme(e){
     $("table td").css("background-color", "");
     $("table td").css("border-color", "");
     $("table th").css("border-color", "");
-    $("table th").css("background", "");
+    $("table th").css("background-color", "");
     $("table").css("background-color", "");
     $("table").css("box-shadow", "");
     $("table").css("text-shadow", "");
