@@ -115,7 +115,9 @@ function buildWindow(){
 //////////////////////////////////
 
 
-function updateTable(j = 0, data){
+function updateTable(j, data){
+
+  j = j ? j : 0;
 
   $.each($("td.rank"), function(i, rank){
     i += j;
@@ -187,7 +189,7 @@ function toggleSettings(){
   $(".settings").toggle();
 }
 
-function popout(){
+/*function popout(){
 
   var data = {
     url: "ticker.html",
@@ -196,25 +198,26 @@ function popout(){
     height: 600
   }
 
+  /!*
   var creating = browser.windows.create(data);
 
-/*  var getting = browser.windows.getAll({
+  var getting = browser.windows.getAll({
     windowTypes: ["popup"],
   });
   getting.then(function (array){
     console.log(this);
     console.log(array);
     console.log(getting);
-  })*/
-}
+  })*!/
+}*/
 
 function toggleTheme(e){
-  /*if(e.target.checked){
+  if(e.target.checked){
     $("table td").css("background-color", "#28342c");
     $("tr.even td").css("background-color", "#191a18");
     $("table td").css("border-color", "#171f1a");
     $("table th").css("border-color", "#171f1a");
-    $("table th").css("background", "#171f1a");
+    $("table th").css("background-color", "#171f1a");
     $("table").css("background-color", "#171f1a");
     $("table").css("box-shadow", "none");
     $("table").css("text-shadow", "none");
@@ -228,7 +231,7 @@ function toggleTheme(e){
     $("table td").css("background-color", "");
     $("table td").css("border-color", "");
     $("table th").css("border-color", "");
-    $("table th").css("background", "");
+    $("table th").css("background-color", "");
     $("table").css("background-color", "");
     $("table").css("box-shadow", "");
     $("table").css("text-shadow", "");
@@ -237,7 +240,7 @@ function toggleTheme(e){
     $("body").css("background-color", "");
     $("#bottomWrapper").css("text-shadow", "");
     $("#bottomWrapper").css("color", "");
-  }*/
+  }
 }
 
 function goTo(e){

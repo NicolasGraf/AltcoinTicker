@@ -2,7 +2,7 @@
 
   "manifest_version": 2,
   "name": "Altcoin Ticker",
-  "version": "1.2",
+  "version": "1.3",
 
   "description": "A simple extension that displays a popup on click. \nThe popup shows the Top 10 Crypto Currencies on coinmarketcap.com.\nPlanned features are\n\tOptions-Page\n\tBiggest Gainers/Losers\n\nPowered by coinmarketcap.com/api\nLoading times are API dependent",
 
@@ -14,8 +14,7 @@
   ],
 
   "browser_action": {
-    "browser_style" : true,
-      "default_icon": {
+    "default_icon": {
       "200": "icons/altticker.png"
     },
     "default_title": "AltTicker",
