@@ -197,18 +197,7 @@ function toggleSettings(){
     width: 560,
     height: 600
   }
-
-  /!*
   var creating = browser.windows.create(data);
-
-  var getting = browser.windows.getAll({
-    windowTypes: ["popup"],
-  });
-  getting.then(function (array){
-    console.log(this);
-    console.log(array);
-    console.log(getting);
-  })*!/
 }*/
 
 function toggleTheme(e){
@@ -226,6 +215,10 @@ function toggleTheme(e){
     $("body").css("background-color", "#171f1a");
     $("#bottomWrapper").css("text-shadow", "none");
     $("#bottomWrapper").css("color", "#666");
+    $("label").css("background-color", "#3c3d3d");
+    $("input").css("background-color", "#3c3d3d");
+    $("label").css("color", "#afb1b1");
+    $("input").css("color", "#afb1b1");
   } else {
     $("table even td").css("background-color", "");
     $("table td").css("background-color", "");
@@ -240,6 +233,10 @@ function toggleTheme(e){
     $("body").css("background-color", "");
     $("#bottomWrapper").css("text-shadow", "");
     $("#bottomWrapper").css("color", "");
+    $("label").css("background-color", "");
+    $("input").css("background-color", "");
+    $("label").css("color", "");
+    $("input").css("color", "");
   }
 }
 
