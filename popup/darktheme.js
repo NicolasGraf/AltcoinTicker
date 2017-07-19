@@ -1,8 +1,5 @@
-/**
- * Created by nick on 19.07.17.
- */
-var darktheme = {
-    apply: function (){
+function darktheme() {
+    this.apply = function (){
         $("table td").css("background-color", "#28342c");
         $("tr.even td").css("background-color", "#191a18");
         $("table td").css("border-color", "#171f1a");
@@ -21,7 +18,7 @@ var darktheme = {
         $("label").css("color", "#afb1b1");
         $("input").css("color", "#afb1b1");
     },
-    revert: function(){
+    this.revert = function(){
         $("table even td").css("background-color", "");
         $("table td").css("background-color", "");
         $("table td").css("border-color", "");
