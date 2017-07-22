@@ -10,7 +10,7 @@ function init() {
     pageNumber = 1,
         currency = "USD",
         theme = new darktheme();
-    var limit = 100;
+    var limit = 500;
 
     currencies = {
         USD: "$",
@@ -50,10 +50,8 @@ function init() {
     });
 
     $("#toggleSettings").on("change", function (e) {
-        console.log("showing Settings");
         showSettings(e.target.checked);
         saveOption("settingsEnabled", e.target.checked);
-        console.log(e.target.checked);
     });
 
     $("#toggleTheme").on("change", function (e) {
@@ -63,7 +61,6 @@ function init() {
 
     $("#popout").on("click", function () {
         $("body").css("width", "");
-        console.log($("body"));
         popout();
     });
 
@@ -71,6 +68,10 @@ function init() {
     restoreOptions();
     $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + currency + "&limit=" + limit, function (res) {
         data = res;
+        //If you want to renew icons
+/*        for(var i = 0; i < res.length; i++){
+            console.log('wget "https://files.coinmarketcap.com/static/img/coins/32x32/' + res[i].id + '.png');
+        }*/
         //Show and Hide Elements when API has finished loading
         buildWindow();
         buildTable();
@@ -96,7 +97,7 @@ function restoreOptions() {
     if (curr != undefined) currency = curr;
     $("#currencieList").val(currency);
 
-    pageNumber = parseInt(page);
+    if(page != undefined) pageNumber = parseInt(page);
     $("#pageNumber").text(page);
 
     if (settingsOn == true || settingsOn == "true") {
@@ -149,7 +150,6 @@ function buildWindow() {
 
     //Table header
     $("#firstrow").show();
-    console.log($("#toggleSettings").prop("checked"));
     if ($("#toggleSettings").prop("checked")) $(".settings").show();
 
     //Page Navigator
@@ -168,7 +168,6 @@ function updateTable(j, data) {
     j = j ? j : 0;
 
     handleTheme(theme.getStatus());
-    console.log(pageNumber);
     $("#pageNumber").text(pageNumber);
 
     $.each($("td.rank"), function (i, rank) {
