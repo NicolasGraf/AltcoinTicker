@@ -1,4 +1,5 @@
 function darktheme() {
+    applied = false,
     this.apply = function (){
         $("table td").css("background-color", "#28342c");
         $("tr.even td").css("background-color", "#191a18");
@@ -17,6 +18,7 @@ function darktheme() {
         $("input").css("background-color", "#3c3d3d");
         $("label").css("color", "#afb1b1");
         $("input").css("color", "#afb1b1");
+        applied = true;
     },
     this.revert = function(){
         $("table even td").css("background-color", "");
@@ -36,5 +38,12 @@ function darktheme() {
         $("input").css("background-color", "");
         $("label").css("color", "");
         $("input").css("color", "");
+        applied = false;
+        console.log("after revert" + applied);
     }
+    this.getStatus = function(){
+        console.log("as return" + applied);
+        return applied;
+    }
+
 }

@@ -44,11 +44,7 @@ input, label {
     z-index: 3;
 }
 
-.settings {
-    display: none;
-}
-
-#firstrow, #pages, #toggle {
+#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel {
     display: none;
 }
 

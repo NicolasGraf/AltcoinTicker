@@ -10,7 +10,8 @@
     "48": "icons/altticker.png"
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
 
   "browser_action": {
