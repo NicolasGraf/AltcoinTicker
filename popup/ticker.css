@@ -1,5 +1,5 @@
 html, body {
-    width: 550px;
+    width: 575px;
 }
 
 input, label {
@@ -19,9 +19,24 @@ input, label {
     display: table-row;
 }
 
+.active {
+    background-color: initial;
+}
+
+.inactive {
+    background-color: #b7b9b9;
+    opacity: 0.5;
+    text-shadow: none;
+}
+.inactive-dark {
+    background-color: #4d6551;
+    opacity: 0.5;
+    text-shadow: none;
+}
+
 .loader {
     border: 16px solid #e1e1e1; /* Light grey */
-    border-top: 16px solid #cedebc; /*Green */
+    border-top: 16px solid #cedebc;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -44,7 +59,7 @@ input, label {
     z-index: 3;
 }
 
-#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel {
+#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel, #tabsrow {
     display: none;
 }
 
@@ -85,6 +100,17 @@ input, label {
     color: inherit;
 }
 
+#prevPage, #nextPage {
+    display: inline-block;
+}
+
+#currencieList{
+    background-color: #dcdcdc;
+}
+
+
+
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
@@ -93,7 +119,7 @@ input, label {
 /*========== TABLE STYLING =========*/
 table {
     font-family:Arial, Helvetica, sans-serif;
-    color:#666;
+    color: #545454;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
     background:#eaebec;

@@ -8,13 +8,22 @@
   </head>
 
   <body>
-    <table class="table" style="width:100%">
-     <tr class="tablerow" id="firstrow">
+    <table id="currencyTable" class="table" style="width:100%">
+     <tr id="tabsrow">
+       <th id="firsttab">
+         Top 100
+       </th>
+       <th class="inactive" id="secondtab">
+         Favourites
+       </th>
+     </tr>
+      <tr class="tablerow" id="firstrow">
        <th>Rank</th>
        <th>Logo</th>
        <th>Name</th>
        <th>Price</th>
        <th>Change(24/h)</th>
+       <th>Fav</th>
      </tr>
     </table>
     <div id="bottomWrapper">
@@ -29,7 +38,7 @@
           <input id="updateBtn" name="update" type="button" value="Update">
         </div>
         <label id="timestamp" for="timestampLabel">Last update: <span id="timestampLabel"></span></label>
-        <label>Currency:
+        <label id="currencyLabel">Currency:
         <select id="currencieList" name="currencies">
           <option>USD</option>
           <option>EUR</option>
