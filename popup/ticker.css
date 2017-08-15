@@ -3,7 +3,7 @@ html, body {
 }
 
 input, label {
-    padding:5px;
+    padding: 6px;
     background-color: #dcdcdc;
     border: 1px solid #666;
     color:#000;
@@ -59,11 +59,20 @@ input, label {
     z-index: 3;
 }
 
-#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel, #tabsrow {
+#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel, #tabsrow, #timestamp, #timestampLabel {
     display: none;
 }
+#pages {
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
 
-#timestamp, #refresh {
+#timestamp {
+    margin-left: 3px;
+    margin-top: 5px;
+}
+
+#refresh {
     display: inline-block;
     margin-top: 5px;
 }
@@ -104,7 +113,7 @@ input, label {
     display: inline-block;
 }
 
-#currencieList{
+#currencieList, #percentList{
     background-color: #dcdcdc;
 }
 

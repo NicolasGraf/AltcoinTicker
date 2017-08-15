@@ -17,6 +17,8 @@ function darktheme() {
         $("#bottomWrapper").css("color", "#666");
         $("#currencieList").css("background-color", "#3c3d3d");
         $("#currencieList").css("color", "#b1b1b1");
+        $("#percentList").css("background-color", "#3c3d3d");
+        $("#percentList").css("color", "#b1b1b1");
         $("label").css("background-color", "#3c3d3d");
         $("input").css("background-color", "#3c3d3d");
         $("label").css("color", "#afb1b1");
@@ -40,6 +42,8 @@ function darktheme() {
         $("#bottomWrapper").css("color", "");
         $("#currencieList").css("background-color", "");
         $("#currencieList").css("color", "");
+        $("#percentList").css("background-color", "");
+        $("#percentList").css("color", "");
         $("label").css("background-color", "");
         $("input").css("background-color", "");
         $("label").css("color", "");

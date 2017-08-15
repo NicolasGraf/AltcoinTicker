@@ -13,7 +13,7 @@ function init() {
         favourites: [],
         pageNumbers: [1, 1],
         view: 1,
-        limit: 500,
+        limit: 100,
         currency: "USD",
         theme: new darktheme(),
         currencies: {
@@ -38,6 +38,7 @@ function init() {
             GBP: "24h_volume_gbp",
             BTC: "24h_volume_btc"
         },
+        activePercentage: "1h",
         getPageNumber: function(){
             if(this.view == 1){
                 return this.pageNumbers[0];
@@ -100,6 +101,12 @@ function init() {
         saveOption("currencie", ticker.currency);
         updateData();
     });
+    $("#percentList").on("change", function () {
+        ticker.activePercentage = $(this).val();
+        $("#changeHead").text("Change(" + ticker.activePercentage + ")");
+        saveOption("percent", ticker.activePercentage);
+        updateData();
+    });
 
     $("#toggleSettings").on("change", function (e) {
         showSettings(e.target.checked);
@@ -116,8 +123,8 @@ function init() {
         //popout();
     });
     restoreFavourites();
-    //Get Data intially
     restoreOptions();
+    //Get Data intially
     $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
         ticker.setData(res);
         //If you want to renew icons set ticker.limit to 500
@@ -159,14 +166,16 @@ function restoreOptions() {
         page = window.localStorage.getItem("pageNumber"),
         settingsOn = window.localStorage.getItem("settingsEnabled"),
         themeEnabled = window.localStorage.getItem("themeEnabled"),
-        view = window.localStorage.getItem("view");
-
-    // if (view != undefined) ticker.view = parseInt(view);
-
+        view = window.localStorage.getItem("view"),
+        percentage = window.localStorage.getItem("percent");
 
     //Set Currency
     if (curr != undefined) ticker.currency = curr;
     $("#currencieList").val(ticker.currency);
+
+    if (percentage != undefined) ticker.activePercentage = percentage;
+    $("#changeHead").text("Change(" + ticker.activePercentage + ")");
+    $("#percentageList").val(ticker.activePercentage);
 
     if (page != undefined) ticker.setPageNumber(parseInt(page));
     $("#pageNumber").text(page);
@@ -188,6 +197,7 @@ function restoreOptions() {
 
 function buildTable() {
     var row, rows;
+    //No idea what happens here
     if (ticker.view == 1) {
         rows = 10;
     } else if (ticker.view == 2) {
@@ -276,6 +286,8 @@ function buildWindow() {
     //Settings Area
     $("#toggleLabel").show();
     $("#toggleSettings").show();
+    $("#timestamp").css("display", "inline-block");
+    $("#timestampLabel").css("display", "inline-block");
     $("#timestampLabel").text(getTime());
 
     //Table header
@@ -347,12 +359,12 @@ function updateData() {
                 ticker.favourites[i] = ticker.data[ticker.favourites[i].rank - 1];
             }
         }
-
-        updateTable((ticker.getPageNumber - 1) * 10);
+        updateTable((ticker.getPageNumber() - 1) * 10);
 
         $("#timestampLabel").text(getTime());
         disableElementForSeconds($("#updateBtn"), 10);
         disableElementForSeconds($("#currencieList"), 2);
+        disableElementForSeconds($("#percentList"), 2);
 
         overlay(false);
     });
@@ -491,16 +503,16 @@ function getTime() {
 
 function overlay(on) {
     if (on) {
-        $("#overlay").show();
-        $("#overlay").animate({
-            opacity: 0.5
+        $("#overlay").show()
+            .animate({
+                opacity: 0.5
         }, 80);
         $("#smallLoader").show();
     } else {
         $("#overlay").animate({
             opacity: 0.5
-        }, 80);
-        $("#overlay").hide();
+        }, 80)
+            .hide();
         $("#smallLoader").hide();
     }
 }
@@ -524,14 +536,14 @@ function getFormattedPrice(element) {
 }
 
 function getFormattedChange(data, element) {
-    if (data.percent_change_24h == null) {
+    if (data["percent_change_" + ticker.activePercentage] == null) {
         $(element).css("color", "black");
         return "/";
-    } else if (parseFloat(data.percent_change_24h) >= 0) {
+    } else if (parseFloat(data["percent_change_" + ticker.activePercentage]) >= 0) {
         $(element).css("color", "green");
-        return data.percent_change_24h + "%";
-    } else if (parseFloat(data.percent_change_24h) <= 0) {
+        return data["percent_change_" + ticker.activePercentage] + "%";
+    } else if (parseFloat(data["percent_change_" + ticker.activePercentage]) <= 0) {
         $(element).css("color", "#e45567");
-        return data.percent_change_24h + "%";
+        return data["percent_change_" + ticker.activePercentage] + "%";
     }
 }

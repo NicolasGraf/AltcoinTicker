@@ -22,7 +22,7 @@
        <th>Logo</th>
        <th>Name</th>
        <th>Price</th>
-       <th>Change(24/h)</th>
+       <th id="changeHead">Change(24/h)</th>
        <th>Fav</th>
      </tr>
     </table>
@@ -33,11 +33,14 @@
         <label id="toggleLabel" style="padding: 6px 5px;">Settings
           <input id="toggleSettings" type="checkbox" checked>
         </label>
+        <label id="timestamp" for="timestampLabel">Last update:
+          <span id="timestampLabel"></span>
+        </label>
         <div class="settings">
         <div id="refresh">
           <input id="updateBtn" name="update" type="button" value="Update">
         </div>
-        <label id="timestamp" for="timestampLabel">Last update: <span id="timestampLabel"></span></label>
+
         <label id="currencyLabel">Currency:
         <select id="currencieList" name="currencies">
           <option>USD</option>
@@ -47,7 +50,13 @@
           <option>BTC</option>
         </select>
         </label>
-        &thinsp;
+          <label id="percentLabel">% Change:
+            <select id="percentList" name="percentages">
+              <option>1h</option>
+              <option>24h</option>
+              <option>7d</option>
+            </select>
+          </label>&thinsp;
         <label id="toggle-theme">Dark Theme
           <input id="toggleTheme" type="checkbox">
         </label>
