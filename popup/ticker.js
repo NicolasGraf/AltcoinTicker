@@ -20,6 +20,7 @@ function init() {
     losers_24h: [],
     losers_7d: [],
     pageNumbers: [1, 1, 1, 1],
+    pageLimit: 25,
     view: 1,
     activeTab: '#firsttab',
     limit: 1000,
@@ -102,6 +103,7 @@ function init() {
   $('#thirdtab').on("click", function (e) {
     switchTab(3, "#thirdtab");
   });
+
   $('#fourthtab').on("click", function (e) {
     switchTab(4, "#fourthtab");
   });
@@ -112,6 +114,7 @@ function init() {
     saveOption("currencie", ticker.currency);
     updateData();
   });
+
   $("#percentList").on("change", function () {
     ticker.activePercentage = $(this).val();
     $("#changeHead").text("Change(" + ticker.activePercentage + ")");
@@ -133,16 +136,17 @@ function init() {
     $("body").css("width", "");
     //popout();
   });
+
   restoreFavourites();
   restoreOptions();
   //Get Data intially
   $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
     //If you want to renew icons
     //printImageLinks(res);
+
     ticker.res = res.slice(0);
 
     var tempStrings = window.localStorage.getItem("fav").split(" ");
-
 
     for (var j = 0; j < tempStrings.length - 1; j++) {
       for (var k = 0; k < res.length; k++) {
@@ -152,16 +156,14 @@ function init() {
       }
     }
 
-    var data = res;
-    ticker.fullData = data;
-    ticker.data = data.slice(0, 100);
+    ticker.fullData = res;
+    ticker.data = res.slice(0, ticker.pageLimit * 10);
     ticker.setGainersAndLosers();
 
     buildWindow();
 
-
-
     buildTable();
+
     if (ticker.getPageNumber() === 1) {
       updateTable(0);
     } else {
@@ -312,7 +314,7 @@ function buildTable() {
   for (var i = 0; i < rows; i++) {
     //Every second row has a different color
     if (i % 2 == 0) {
-      row = $("<tr>").addClass("altcoin").addClass("row").appendTo($("table"));
+      row = $("<tr>").addClass("altcoin").addClass("row").addClass("col1").appendTo($("table"));
     } else {
       row = $("<tr>").addClass("altcoin").addClass("even").addClass("row").appendTo($("table"));
     }
@@ -384,7 +386,7 @@ function buildWindow() {
   //Page Navigator
   $("#pages").css("display", "inline-block");
   $("#pageNumber").text(ticker.getPageNumber());
-  $("#prevPage").css("color", "gray");
+  $("#prevPage").css("color", "black");
 }
 
 //////////////////////////////////
@@ -407,7 +409,6 @@ function updateTable(j) {
   } else if(ticker.view == 4){
     updatedData = ticker["losers_" + ticker.activePercentage];
   }
-
 
   handleTheme(ticker.theme.getStatus());
 
@@ -445,7 +446,7 @@ function updateData() {
   overlay(true);
   $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
     ticker.res = res.slice(0);
-    ticker.data = res.slice(0, 100);
+    ticker.data = res.slice(0, ticker.pageLimit * 10);
 
     for (var i = 0; i < ticker.favourites.length; i++) {
       for(var j = 0; j < res.length; j++){
@@ -457,7 +458,6 @@ function updateData() {
 
     ticker.fullData = res;
     ticker.setGainersAndLosers();
-
 
     updateTable((ticker.getPageNumber() - 1) * 10);
 
@@ -478,24 +478,28 @@ function lookForFavourites(){
 //EVENT HANDLER
 //////////////////////////////////
 function nextPage() {
-  var usedData;
+  var usedData, limit;
 
   if (ticker.view == 1) {
     usedData = ticker.data;
+    limit = ticker.pageLimit;
   } else if(ticker.view == 2){
     usedData = ticker.favourites;
+    limit = 10;
   } else if(ticker.view == 3){
     usedData = ticker["gainers_" + ticker.activePercentage];
+    limit = 10;
   } else if(ticker.view == 4){
     usedData = ticker["losers_" + ticker.activePercentage];
+    limit = 10;
   }
-  if (ticker.getPageNumber() < 10 && ticker.getPageNumber() * 10 < usedData.length) {
+  if (ticker.getPageNumber() < limit && ticker.getPageNumber() * 10 < usedData.length) {
     ticker.setPageNumber(ticker.getPageNumber() + 1);
     buildTable();
     updateTable((ticker.getPageNumber() - 1) * 10);
     saveOption("pageNumber" + ticker.view.toString(), ticker.getPageNumber());
-    if (ticker.getPageNumber() == 10) {
-      $("#nextPage").css("color", "gray");
+    if (ticker.getPageNumber() == limit) {
+      $("#nextPage").css("color", "black");
     } else {
       $("#prevPage").css("color", "black");
     }
@@ -509,7 +513,7 @@ function previousPage() {
     updateTable((ticker.getPageNumber() - 1) * 10);
     saveOption("pageNumber" + ticker.view.toString(), ticker.getPageNumber());
     if (ticker.getPageNumber() == 1) {
-      $("#prevPage").css("color", "gray");
+      $("#prevPage").css("color", "black");
     } else {
       $("#nextPage").css("color", "black");
     }
