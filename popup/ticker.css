@@ -1,5 +1,12 @@
 html, body {
-    width: 550px;
+    width: 575px;
+}
+
+input, label {
+    padding: 6px;
+    background-color: #dcdcdc;
+    border: 1px solid #666;
+    color:#000;
 }
 
 .logo {
@@ -12,9 +19,24 @@ html, body {
     display: table-row;
 }
 
+.active {
+    background-color: initial;
+}
+
+.inactive {
+    background-color: #b7b9b9;
+    opacity: 0.5;
+    text-shadow: none;
+}
+.inactive-dark {
+    background-color: #4d6551;
+    opacity: 0.5;
+    text-shadow: none;
+}
+
 .loader {
     border: 16px solid #e1e1e1; /* Light grey */
-    border-top: 16px solid #cedebc; /*Green */
+    border-top: 16px solid #cedebc;
     border-radius: 50%;
     width: 50px;
     height: 50px;
@@ -37,23 +59,32 @@ html, body {
     z-index: 3;
 }
 
-.settings {
-    display: none;
+.col1 {
+    width: 13%;
 }
 
-#firstrow, #pages, #toggle {
+#firstrow, #pages, #toggle, .settings, #toggleSettings, #toggleLabel, #tabsrow, #timestamp, #timestampLabel {
     display: none;
 }
+#pages {
+    padding-bottom: 6px;
+    padding-top: 5px;
+}
 
-#timestamp, #refresh {
+#timestamp {
+    margin-left: 3px;
+    margin-top: 5px;
+}
+
+#refresh {
     display: inline-block;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 #pageNumber {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
-    margin: 0px 5px;
+    margin: 0 5px;
     display: inline-block;
 }
 
@@ -74,12 +105,24 @@ html, body {
 #bottomWrapper {
     font-family:Arial, Helvetica, sans-serif;
     font-size:12px;
-    text-shadow: 1px 1px 0px #fff;
+    /*text-shadow: 1px 1px 0px #999;*/
 }
+
 #bottomWrapper ::-moz-selection {
     background: transparent;
     color: inherit;
 }
+
+#prevPage, #nextPage {
+    display: inline-block;
+}
+
+#currencieList, #percentList{
+    background-color: #dcdcdc;
+}
+
+
+
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
@@ -89,9 +132,9 @@ html, body {
 /*========== TABLE STYLING =========*/
 table {
     font-family:Arial, Helvetica, sans-serif;
-    color:#666;
+    color: #545454;
     font-size:12px;
-    text-shadow: 1px 1px 0px #fff;
+    /*text-shadow: 1px 1px 0px #999;*/
     background:#eaebec;
     border:#ccc 1px solid;
     width: 100%;
@@ -101,7 +144,7 @@ table {
 }
 
 table th {
-    padding:11px 15px 12px 15px;
+    padding: 11px;
     border-top:1px solid #fafafa;
     border-bottom:1px solid #e0e0e0;
 
@@ -129,7 +172,6 @@ table td {
     border-top: 1px solid #ffffff;
     border-bottom:1px solid #e0e0e0;
     border-left: 1px solid #e0e0e0;
-
     background: #fafafa;
 }
 table tr.even td {
@@ -149,4 +191,22 @@ table tr:hover td {
 }
 table tr.even:hover td {
     background-color: #c2d1b1;
+}
+
+th:first-child, th:nth-child(5) {
+    width: 13%;
+}
+
+th:nth-child(2){
+    width: 10%
+}
+td:nth-child(3){
+    padding-left: 2px;
+    padding-right: 2px;
+}
+th:nth-child(4){
+    width: 18%;
+}
+th:last-child {
+    width: 10%;
 }
