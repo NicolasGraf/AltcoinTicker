@@ -132,9 +132,9 @@ function init() {
     saveOption("themeEnabled", e.target.checked);
   });
 
-  $("#popout").on("click", function () {
-    $("body").css("width", "");
-    //popout();
+  $("#popoutIcon").on("click", function () {
+    //$("body").css("width", "");
+    popout();
   });
 
   restoreFavourites();
@@ -142,7 +142,7 @@ function init() {
   //Get Data intially
   $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
     //Comment out to renew icons
-    printImageLinks(res);
+    // printImageLinks(res);
 
     ticker.res = res.slice(0);
 
@@ -411,8 +411,6 @@ function updateTable(j) {
   handleTheme(ticker.theme.getStatus());
 
   $("#pageNumber").text(ticker.getPageNumber());
-  console.log(ticker.pageLimit);
-  console.log(ticker.getPageNumber());
 
   if(ticker.getPageNumber() == 1){
     $("#prevPage").addClass("no-page");
@@ -474,17 +472,13 @@ function updateData() {
 
     updateTable((ticker.getPageNumber() - 1) * 10);
 
-    $("#timestampLabel").text(getTime());
+    $("#timestampLabel").text("Last update: " + getTime());
     disableElementForSeconds($("#updateBtn"), 10);
     disableElementForSeconds($("#currencieList"), 2);
     disableElementForSeconds($("#percentList"), 2);
 
     overlay(false);
   });
-}
-
-function lookForFavourites(){
-
 }
 
 //////////////////////////////////
@@ -552,16 +546,16 @@ function showSettings(doShow) {
   doShow ? $("#settings").show() : $("#settings").hide();
 }
 
-/*function popout(){
+function popout(){
+  var windowData = {
+   url: "ticker.html",
+   type: "popup",
+   width: 575,
+   height: 522
+  }
 
- var data = {
- url: "ticker.html",
- type: "popup",
- width: 560,
- height: 600
- }
- var creating = browser.windows.create(data);
- }*/
+  browser.windows.create(windowData);
+}
 
 function handleTheme(enable) {
   if (enable) {
