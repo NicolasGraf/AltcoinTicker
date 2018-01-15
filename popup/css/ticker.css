@@ -1,0 +1,259 @@
+html, body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #000;
+}
+
+body {
+  margin: 0;
+  width: 575px;
+}
+
+i {
+  font-family: "FontAwesome";
+}
+
+#appWrapper {
+  width: 575px;
+}
+
+.option{
+  display: inline-block;
+  border: 1px solid #ccc;
+  width: 55px;
+  height: 25px;
+  border-radius: 3px;
+  overflow: hidden;
+  background-color: #fafafa;
+}
+
+#refresh {
+  width: unset;
+}
+
+#refresh input {
+  padding: 5px 12px;
+  border: none;
+  background-color: #fafafa;
+}
+
+#refresh input:active {
+  background-color: rgba(66, 139, 202, 0.6);
+}
+
+.option.large {
+  width: 95px;
+}
+
+
+.option select {
+  padding: 5px 12px;
+  width: 140%;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  margin-left: -8px;
+}
+
+.option select:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 #000;
+}
+
+.option select:focus{
+  outline: none;
+}
+
+.logo {
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: 16px 16px;
+}
+
+.caret {
+  background-image: url("data:image/png;base64,R0lGODlhDwAUAIABAAAAAP///yH5BAEAAAEALAAAAAAPABQAAAIXjI+py+0Po5wH2HsXzmw//lHiSJZmUAAAOw==");
+  background-repeat: no-repeat;
+  background-position: 90% 50%;
+}
+
+.inactive {
+    background-color: #b1b1b1;
+    opacity: 0.5;
+    text-shadow: none;
+}
+
+.inactive-dark {
+    background-color: #4d6551;
+    opacity: 0.5;
+    text-shadow: none;
+}
+
+.loader {
+    border: 16px solid #e1e1e1; /* Light grey */
+    border-top: 16px solid #b4cdcd;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+    margin: 50px auto;
+    left: 50%;
+}
+
+.loader.small {
+    border-width: 6px;
+    border-color: #ade1a0;
+    border-top-color: #e1e1e1;
+    width: 20px;
+    height: 20px;
+    position: fixed;
+    display: none;
+    top: 40%;
+    left: 50%;
+    z-index: 3;
+}
+
+#settingsIcon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+#timestampLabel {
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  cursor: default;
+}
+
+
+#settingsIcon::before {
+  font-family: "FontAwesome";
+  content: "\f013";
+  font-size: 16px;
+  cursor: default;
+}
+
+#prevPage.no-page::before, #nextPage.no-page::before {
+  color: gray;
+}
+
+
+#currencyTable, #bottomWrapper {
+  display: none;
+}
+
+#bottomWrapper {
+  background-color: #ededed;
+  border: 1px solid #ddd;
+  border-top: 3px solid #aaa;
+  position: relative;
+}
+
+#pageIndicator {
+  text-align: center;
+  margin: 5px 0;
+  cursor: default;
+}
+
+#firstrow {
+  cursor: default;
+}
+
+#refresh {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+#pageNumber {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 5px;
+    display: inline-block;
+    width: 15px;
+}
+
+#overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0);
+    opacity: 0.5;
+    z-index: 2;
+}
+
+#bottomWrapper {
+    font-size:12px;
+}
+
+#prevPage, #nextPage {
+    display: inline-block;
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/*========== TABLE STYLING =========*/
+table {
+    width: 100%;
+    font-size: 12px;
+    background-color: #ededed;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+th {
+    padding: 10px;
+    background: #ededed;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+tr {
+  cursor: pointer;
+}
+
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+tr.even td {
+    background-color: #d3d3d3;
+}
+
+tr:hover td {
+    background-color: rgba(66, 139, 202, 0.6);
+}
+tr.even:hover td {
+    background-color: rgba(66, 139, 202, 0.6);
+}
+
+th:first-child, th:nth-child(5) {
+    width: 13%;
+}
+
+th:nth-child(2){
+    width: 10%
+}
+
+/*td:nth-child(3){
+    padding-left: 2px;
+    padding-right: 2px;
+}*/
+
+th:nth-child(4){
+    width: 18%;
+}
+th:last-child {
+    width: 10%;
+}

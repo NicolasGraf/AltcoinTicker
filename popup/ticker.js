@@ -20,7 +20,7 @@ function init() {
     losers_24h: [],
     losers_7d: [],
     pageNumbers: [1, 1, 1, 1],
-    pageLimit: 25,
+    pageLimit: 10,
     view: 1,
     activeTab: '#firsttab',
     limit: 1000,
@@ -117,14 +117,14 @@ function init() {
 
   $("#percentList").on("change", function () {
     ticker.activePercentage = $(this).val();
-    $("#changeHead").text("Change(" + ticker.activePercentage + ")");
+    $("#changeHead").text("Change (" + ticker.activePercentage + ")");
     saveOption("percent", ticker.activePercentage);
     updateData();
   });
 
-  $("#toggleSettings").on("change", function (e) {
-    showSettings(e.target.checked);
-    saveOption("settingsEnabled", e.target.checked);
+  $("#settingsIcon").on("click", function (e) {
+    $(".settings").toggle();
+    saveOption("settingsEnabled", $("#settingsIcon").is(":visible"));
   });
 
   $("#toggleTheme").on("change", function (e) {
@@ -141,8 +141,8 @@ function init() {
   restoreOptions();
   //Get Data intially
   $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
-    //If you want to renew icons
-    //printImageLinks(res);
+    //Comment out to renew icons
+    printImageLinks(res);
 
     ticker.res = res.slice(0);
 
@@ -157,7 +157,7 @@ function init() {
     }
 
     ticker.fullData = res;
-    ticker.data = res.slice(0, ticker.pageLimit * 10);
+    ticker.data = res.slice(0, ticker.limit * 10);
     ticker.setGainersAndLosers();
 
     buildWindow();
@@ -267,15 +267,15 @@ function restoreOptions() {
   $("#currencieList").val(ticker.currency);
 
   if (percentage != undefined) ticker.activePercentage = percentage;
-  $("#changeHead").text("Change(" + ticker.activePercentage + ")");
+  $("#changeHead").text("Change (" + ticker.activePercentage + ")");
   $("#percentList").val(ticker.activePercentage);
 
   $("#pageNumber").text(ticker.getPageNumber());
 
   if (settingsOn == true || settingsOn == "true") {
-    $("#toggleSettings").prop("checked", true);
+    $(".settings").show();
   } else if (settingsOn == false || settingsOn == "false") {
-    $("#toggleSettings").prop("checked", false);
+    $(".settings").hide();
   }
 
   if (themeEnabled == true || themeEnabled == "true") {
@@ -314,9 +314,9 @@ function buildTable() {
   for (var i = 0; i < rows; i++) {
     //Every second row has a different color
     if (i % 2 == 0) {
-      row = $("<tr>").addClass("altcoin").addClass("row").addClass("col1").appendTo($("table"));
+      row = $("<tr>").addClass("row").appendTo($("table"));
     } else {
-      row = $("<tr>").addClass("altcoin").addClass("even").addClass("row").appendTo($("table"));
+      row = $("<tr>").addClass("even").addClass("row").appendTo($("table"));
     }
     //Cells and their values
     var rankcell = $("<td>").addClass("rank").appendTo(row),
@@ -372,21 +372,15 @@ function buildWindow() {
   $("div.loader").hide();
 
   //Settings Area
-  $("#toggleLabel").show();
-  $("#toggleSettings").show();
-  $("#timestamp").css("display", "inline-block");
-  $("#timestampLabel").css("display", "inline-block");
-  $("#timestampLabel").text(getTime());
+  $("#bottomWrapper").show();
+  $("#currencyTable").show();
+  $("#timestampLabel").text("Last update: " + getTime());
 
   //Table header
-  $("#firstrow").show();
-  $("#tabsrow").show();
-  if ($("#toggleSettings").prop("checked")) $(".settings").show();
+  // if ($("#toggleSettings").prop("checked"))
 
   //Page Navigator
-  $("#pages").css("display", "inline-block");
   $("#pageNumber").text(ticker.getPageNumber());
-  $("#prevPage").css("color", "black");
 }
 
 //////////////////////////////////
@@ -401,18 +395,36 @@ function updateTable(j) {
   var updatedData;
 
   if (ticker.view == 1) {
+    ticker.pageLimit = 25;
     updatedData = ticker.data;
   } else if (ticker.view == 2) {
+    ticker.pageLimit = 10;
     updatedData = ticker.favourites;
   } else if(ticker.view == 3){
+    ticker.pageLimit = 10;
     updatedData = ticker["gainers_" + ticker.activePercentage];
   } else if(ticker.view == 4){
+    ticker.pageLimit = 10;
     updatedData = ticker["losers_" + ticker.activePercentage];
   }
 
   handleTheme(ticker.theme.getStatus());
 
   $("#pageNumber").text(ticker.getPageNumber());
+  console.log(ticker.pageLimit);
+  console.log(ticker.getPageNumber());
+
+  if(ticker.getPageNumber() == 1){
+    $("#prevPage").addClass("no-page");
+    $("#nextPage").removeClass("no-page");
+  } else if(ticker.getPageNumber() == ticker.pageLimit){
+    $("#nextPage").addClass("no-page");
+    $("#prevPage").removeClass("no-page");
+  } else {
+    $("#nextPage").removeClass("no-page");
+    $("#prevPage").removeClass("no-page");
+  }
+
 
   $.each($("td.rank"), function (i, rankEl) {
     i += j;
@@ -446,7 +458,8 @@ function updateData() {
   overlay(true);
   $.getJSON("https://api.coinmarketcap.com/v1/ticker/?convert=" + ticker.currency + "&limit=" + ticker.limit, function (res) {
     ticker.res = res.slice(0);
-    ticker.data = res.slice(0, ticker.pageLimit * 10);
+    ticker.data = res.slice(0, ticker.limit * 10);
+
 
     for (var i = 0; i < ticker.favourites.length; i++) {
       for(var j = 0; j < res.length; j++){
@@ -478,30 +491,32 @@ function lookForFavourites(){
 //EVENT HANDLER
 //////////////////////////////////
 function nextPage() {
-  var usedData, limit;
+  var usedData;
 
   if (ticker.view == 1) {
     usedData = ticker.data;
-    limit = ticker.pageLimit;
+    ticker.pageLimit = 25;
   } else if(ticker.view == 2){
     usedData = ticker.favourites;
-    limit = 10;
+    ticker.pageLimit = 10;
   } else if(ticker.view == 3){
     usedData = ticker["gainers_" + ticker.activePercentage];
-    limit = 10;
+    ticker.pageLimit = 10;
   } else if(ticker.view == 4){
     usedData = ticker["losers_" + ticker.activePercentage];
-    limit = 10;
+    ticker.pageLimit = 10;
   }
-  if (ticker.getPageNumber() < limit && ticker.getPageNumber() * 10 < usedData.length) {
+
+  if (ticker.getPageNumber() < ticker.pageLimit && ticker.getPageNumber() * 10 < usedData.length) {
     ticker.setPageNumber(ticker.getPageNumber() + 1);
     buildTable();
     updateTable((ticker.getPageNumber() - 1) * 10);
     saveOption("pageNumber" + ticker.view.toString(), ticker.getPageNumber());
-    if (ticker.getPageNumber() == limit) {
-      $("#nextPage").css("color", "black");
+    if (ticker.getPageNumber() == ticker.pageLimit) {
+      $("#nextPage").addClass("no-page");
     } else {
-      $("#prevPage").css("color", "black");
+      $("#prevPage").removeClass("no-page");
+      $("#nextPage").removeClass("no-page");
     }
   }
 }
@@ -513,9 +528,10 @@ function previousPage() {
     updateTable((ticker.getPageNumber() - 1) * 10);
     saveOption("pageNumber" + ticker.view.toString(), ticker.getPageNumber());
     if (ticker.getPageNumber() == 1) {
-      $("#prevPage").css("color", "black");
+      $("#prevPage").addClass("no-page");
     } else {
-      $("#nextPage").css("color", "black");
+      $("#nextPage").removeClass("no-page");
+      $("#prevPage").removeClass("no-page");
     }
   }
 }
@@ -533,7 +549,7 @@ function switchTab(tabnumber, currentTab) {
 
 
 function showSettings(doShow) {
-  doShow ? $(".settings").show() : $(".settings").hide();
+  doShow ? $("#settings").show() : $("#settings").hide();
 }
 
 /*function popout(){
@@ -629,7 +645,7 @@ function removeFromFavourites(e) {
 //HELPER FUNCTIONS
 //////////////////////////////////
 function getImageUrl(id) {
-  return "url(" + "\"/icons/" + id + ".png" + "\"" + ")";
+  return "url(" + "\"../icons/" + id + ".png" + "\"" + ")";
 }
 
 function printImageLinks(res) {

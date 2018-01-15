@@ -2,74 +2,77 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="ticker.css"/>
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="css/ticker.css"/>
+    <link rel="stylesheet" href="css/font-awesome.min.css"/>
   </head>
 
   <body>
-    <table id="currencyTable" class="table" style="width:100%">
-     <tr id="tabsrow">
-       <th id="firsttab">
-         Top 250
-       </th>
-       <th class="inactive" id="secondtab">
-         Favourites
-       </th>
-       <th class="inactive" id="thirdtab">
-         Gainers
-       </th>
-       <th class="inactive" id="fourthtab">
-         Losers
-       </th>
-     </tr>
-      <tr class="tablerow" id="firstrow">
-       <th>Rank</th>
-       <th>Logo</th>
-       <th>Name</th>
-       <th>Price</th>
-       <th id="changeHead">Change(24/h)</th>
-       <th>Fav</th>
-     </tr>
-    </table>
-    <div id="bottomWrapper">
-      <div id="overlay"></div>
-      <div id="smallLoader" class="loader small"></div>
-        <label id="pages">Page <span id="prevPage">&#9664;</span><span id="pageNumber"></span><span id=nextPage>&#9654;</span></label>
-        <label id="toggleLabel" style="padding: 6px 5px;">Settings
-          <input id="toggleSettings" type="checkbox" checked>
-        </label>
-        <label id="timestamp" for="timestampLabel">Last update:
-          <span id="timestampLabel"></span>
-        </label>
+    <div id="appWrapper">
+      <table id="currencyTable" class="table">
+       <tr id="tabsrow">
+         <th id="firsttab">
+           Top 250
+         </th>
+         <th class="inactive" id="secondtab">
+           Favourites
+         </th>
+         <th class="inactive" id="thirdtab">
+           Gainers
+         </th>
+         <th class="inactive" id="fourthtab">
+           Losers
+         </th>
+       </tr>
+        <tr class="tablerow" id="firstrow">
+         <th>Rank</th>
+         <th>Logo</th>
+         <th>Name</th>
+         <th>Price</th>
+         <th id="changeHead">Change (24/h)</th>
+         <th>Fav</th>
+       </tr>
+      </table>
+      <div id="bottomWrapper">
+        <div id="timestampLabel">
+          <span id="timestampLabel"><span>
+        </div>
+        <div id="pageIndicator">
+          <i id="prevPage" class="fa fa-chevron-left" aria-hidden="true"></i>
+          <span id="pageNumber"></span>
+          <i id="nextPage" class="fa fa-chevron-right" aria-hidden="true"></i>
+        </div>
+        <div id="settingsIcon"></div>
         <div class="settings">
-        <div id="refresh">
+        <div class="option" id="refresh">
           <input id="updateBtn" name="update" type="button" value="Update">
         </div>
-
-        <label id="currencyLabel">Currency:
-        <select id="currencieList" name="currencies">
-          <option>USD</option>
-          <option>EUR</option>
-          <option>AUD</option>
-          <option>GBP</option>
-          <option>BTC</option>
-        </select>
-        </label>
-          <label id="percentLabel">% Change:
-            <select id="percentList" name="percentages">
-              <option>1h</option>
-              <option>24h</option>
-              <option>7d</option>
-            </select>
-          </label>&thinsp;
-        <label id="toggle-theme">Dark Theme
-          <input id="toggleTheme" type="checkbox">
-        </label>
-          <!-- <input id="popout" type="button" value="Popout"> -->
+        <div class="option caret">
+          <select id="currencieList" name="currencies">
+            <option>USD</option>
+            <option>EUR</option>
+            <option>AUD</option>
+            <option>GBP</option>
+            <option>BTC</option>
+          </select>
+        </div>
+        <div class="option caret large">
+          <select id="percentList" name="percentages">
+            <option value="1h">Change 1h</option>
+            <option value="24h">Change 24h</option>
+            <option value="7d">Change 7d</option>
+          </select>
+        </div>
+          <!-- <label id="toggle-theme">Dark Theme
+            <input id="toggleTheme" type="checkbox">
+          </label> -->
+            <!-- <input id="popout" type="button" value="Popout"> -->
+        </div>
       </div>
-      <div class="loader"></div>
     </div>
+    <div class="loader"></div>
+    <div id="overlay"></div>
+    <div id="smallLoader" class="loader small"></div>
     <script src="ticker.js"></script>
     <script src="darktheme.js"></script>
     <script src="../node_modules/jquery/dist/jquery.js"></script>

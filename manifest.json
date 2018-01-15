@@ -2,12 +2,12 @@
 
   "manifest_version": 2,
   "name": "Altcoin Ticker",
-  "version": "1.8.1",
+  "version": "1.9.1",
 
   "description": "",
 
   "icons": {
-    "48": "icons/altticker.png"
+    "256": "icons/altticker.png"
   },
   "permissions": [
     "activeTab",
